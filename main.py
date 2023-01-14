@@ -82,7 +82,6 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/verification", response_class=HTMLResponse)
 async def email_verification(request: Request, token: str):
     user = await verify_token(token)
-    print("token --> ", token)
     if user and not user.is_verified:
         user.is_verified = True
         await user.save()
@@ -124,6 +123,8 @@ async def user_registrations(user: user_pydanticIn):
         "data": f"Hello {new_user.username}, thanks for registrations.\n"
                 f"Please check your email and click on the link to confirm you registrations"
     }
+
+
 
 
 @app.post("/products/create")
